@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <style>
+
+        .post-row{
+            margin-top: 30px !important
+        }
+
+        .col-md-3{
+            margin-bottom: 20px
+        }
+
+        li{
+            cursor: pointer
+        }
+       
+
+    </style>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://unpkg.com/htmx.org@1.9.8" integrity="sha384-rgjA7mptc2ETQqXoYC3/zJvkU7K/aP44Y+z7xQuJiVnB/422P/Ak+F/AqFR7E4Wr" crossorigin="anonymous"></script>
+</head>
+<body>
+
+   
+    
+
+
+      <div class="container" id="container">
+
+
+        <nav class="navbar bg-light">
+            <div class="container-fluid">
+              <form class="d-flex" role="search"
+              hx-get="{% url 'form-search' %}"
+              hx-trigger = "submit"
+              hx-target="#container"
+              hx-swap="outerHTML"
+              >
+                
+                
+                <input class="form-control me-2" name="search" 
+                style="width: 400px" type="search" placeholder="Search" 
+                value="{{title}}"
+                
+                hx-get="{% url 'search' %}"
+                hx-trigger = "keyup changed delay: 500ms"
+                hx-target="#list-group"
+                hx-swap="outerHTML"
+
+                >
+                <button class="btn btn-outline-success" type="submit">Search</button>
+              </form>
+            </div>
+          </nav>
+
+          {% include 'suggestions.html' %}
+
+          {{msg}}
+  
+        <div class="row post-row">
+
+        
+
+            
+            {% for post in posts  %}
+
+            <div class="col-md-3">
+                <div class="card" style="width: 15rem;">
+                    <img src="{{post.thumbnail.url}}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                      <h5 class="card-title">{{post.title}}</h5>
+                      <p class="card-text">
+                         {{post.description | truncatechars:"50"}}
+                        </p>
+                    </div>
+                  </div>
+            </div>
+                
+            {% endfor %}
+
+
+            
+            
+                  
+                
+
+            
+
+            
+
+
+            
+
+
+
+        </div>
+      </div>
+
+      
+
+      
+     
+
+</body>
+</html>

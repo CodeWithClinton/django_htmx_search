@@ -1,0 +1,13 @@
+<ul class="list-group" id="list-group" style="width: 400px; display:{{display}}">
+            
+    {% for tag in tags  %}
+    <li class="list-group-item"
+    hx-get="{% url 'append-tag' tag.id %}"
+    hx-trigger="click"
+    hx-target="#container"
+    hx-swap="outerHTML"
+    >{{tag.title}}</li>
+    {% endfor %}
+        
+</ul>
+
